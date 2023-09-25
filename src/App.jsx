@@ -11,6 +11,7 @@ const { Content } = Layout;
 const App = () => {
   const formik = useFormik({
     onSubmit: (values) => {
+      console.log(`the values are: ${values.input}`);
       const result = checkAutomata(values.input);
 
       alert(result.message);
@@ -56,7 +57,7 @@ const App = () => {
                   <Text type="danger">{formik.errors.input}</Text>
                 ) : null}
               </Space>
-              <Button type="primary" onClick={formik.handleSubmit}>
+              <Button type="primary" htmlType="submit" onClick={formik.handleSubmit}>
                 Evaluar
               </Button>
             </Space>

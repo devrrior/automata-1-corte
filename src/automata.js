@@ -36,30 +36,42 @@ export const checkAutomata = (input) => {
     q36: { 4: "q37" },
     q37: { 5: "q38" },
     q38: { 0: "q39" },
-    q39: { 0: "q18" },
+    q39: { 0: "q40" },
     q40: { _: "q41" },
     q41: { T: "q42" },
     q42: { P: "q43" },
+
+    q10: {}, q23: {}, q26: {}, q43: {}
   };
 
   let currentState = "q0";
+  let history = ["q0"];
+  const inputArray = input.split("");
+  let response;
 
-  for (let i = 0; i < input.length; i++) {
-    const char = input[i];
 
-    try {
-      if (states[currentState][char]) {
-        currentState = states[currentState][char];
-      }
-    } catch (error) {
-      return { success: false, message: "Automata no valido, error en el estado " + currentState};
+  for (let i = 0; i < inputArray.length; i++) {
+    const char = inputArray[i];
+    if (states[currentState][char]) {
+      currentState = states[currentState][char];
+      history.push(currentState);
+      console.log(`the current state is ${currentState}, the transition is ${char} and the next state is ${states[currentState][char]}`);
+    } else {
+      console.log("else statement");
+      response = { success: false, message: "Automata no valido, su secuencia de estados hasta donde llego fue el siguiente: " + history.join(" -> ")};
+      break;
     }
   }
 
   if (input.length !== 10 && input.length !== 13 && input.length !== 15) {
-    return { success: false, message: "Automata no valido, error en el estado1 " + currentState};
+    return { success: false, message: "Automata no valido, su secuencia de estados hasta donde llego fue el siguiente: " + history.join(" -> ")};
   }
-  return { success: true, message: "Automata valido"};
+
+
+  if (currentState !== "q10" && currentState !== "q18" && currentState !== "q23" && currentState !== "q26" && currentState !== "q40" && currentState !== "q43") {
+    return { success: false, message: "Automata no valido, su secuencia de estados hasta donde llego fue el siguiente: " + history.join(" -> ")};
+  }
+  return response || { success: true, message: "Automata valido, su secuencia de estados hasta donde llego fue el siguiente: " + history.join(" -> ")};
 };
 
 // /**
