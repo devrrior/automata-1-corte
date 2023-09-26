@@ -40,11 +40,11 @@ const App = () => {
               <img
                 src="vectors/automata-vector.svg"
                 alt="image of automata"
-                style={{ width: "60%" }}
+                style={{ width: "80%" }}
               />
             </div>
 
-            <Space direction="vertical">
+            <Space direction="horizontal" style={{marginTop: "2em"}}>
               <Space direction="vertical">
                 <Input
                   name="input"
@@ -52,12 +52,13 @@ const App = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.input}
                   placeholder="Ingrese el modelo de laptop"
+                  size="large"
                 />
                 {formik.touched.input && formik.errors.input ? (
                   <Text type="danger">{formik.errors.input}</Text>
                 ) : null}
               </Space>
-              <Button type="primary" htmlType="submit" onClick={formik.handleSubmit}>
+              <Button type="primary" htmlType="submit" size="large" onClick={formik.handleSubmit}>
                 Evaluar
               </Button>
             </Space>
